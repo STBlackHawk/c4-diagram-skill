@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Container diagram for Bookshop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Geist', system-ui, sans-serif; background: #f5f5f5; color: #2d3142; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .frame { max-width: 1416px; width: 100%; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #4f5d75; margin-bottom: 0.5rem; }
+    h1 { font-family: 'Instrument Serif', 'Noto Serif', serif; font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 1336px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">C4 · Level 2 · Container</p>
+    <h1>Container diagram for Bookshop</h1>
+    <div class="diagram-container">
+      <svg viewBox="0 0 1336 544" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c4-container-title c4-container-desc">
+        <title id="c4-container-title">Container diagram for Bookshop</title>
+        <desc id="c4-container-desc">The containers inside Bookshop, their technology, the people and external systems they connect to, and how they talk.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<rect x="292" y="204.0" width="752" height="268" rx="8" fill="rgba(28,28,26,0.02)" stroke="rgba(28,28,26,0.10)" stroke-width="0.8"/>
+<rect x="304" y="208.0" width="135" height="12" rx="2" fill="#f5f5f5"/>
+<text x="371.5" y="217.0" fill="#5a6580" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">CLOUD ACCOUNT · EU-WEST</text>
+<path d="M208,284.0 H312" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+<rect x="213" y="266.0" width="94" height="12" rx="2" fill="#f5f5f5"/>
+<text x="260" y="275.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">BROWSES AND ORDERS</text>
+<rect x="245" y="290.0" width="30" height="12" rx="2" fill="#f5f5f5"/>
+<text x="260" y="299.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">HTTPS</text>
+<path d="M208,156.0 H388.0 Q396.0,156.0 396.0,164.0 V240.0" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+<rect x="268" y="138.0" width="69" height="12" rx="2" fill="#f5f5f5"/>
+<text x="302" y="147.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">MANAGES STOCK</text>
+<rect x="287" y="162.0" width="30" height="12" rx="2" fill="#f5f5f5"/>
+<text x="302" y="171.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">HTTPS</text>
+<path d="M480,284.0 H584" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+<rect x="485" y="266.0" width="94" height="12" rx="2" fill="#f5f5f5"/>
+<text x="532" y="275.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">SENDS PAGE REQUEST</text>
+<rect x="492" y="290.0" width="79" height="12" rx="2" fill="#f5f5f5"/>
+<text x="532" y="299.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">JSON OVER HTTPS</text>
+<path d="M660.0,328.0 V404.0 Q660.0,412.0 652.0,412.0 H480" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="528" y="394.0" width="84" height="12" rx="2" fill="#f5f5f5"/>
+<text x="570" y="403.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">READS AND WRITES</text>
+<rect x="560" y="418.0" width="20" height="12" rx="2" fill="#f5f5f5"/>
+<text x="570" y="427.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">SQL</text>
+<path d="M676.0,328.0 V404.0 Q676.0,412.0 684.0,412.0 H856" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="732" y="394.0" width="69" height="12" rx="2" fill="#f5f5f5"/>
+<text x="766" y="403.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">ENQUEUES JOBS</text>
+<rect x="729" y="418.0" width="74" height="12" rx="2" fill="#f5f5f5"/>
+<text x="766" y="427.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">POSTGRES QUEUE</text>
+<path d="M668.0,240.0 V136" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+<rect x="675" y="175.0" width="79" height="12" rx="2" fill="#f5f5f5"/>
+<text x="715" y="184.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">CREATES CHARGES</text>
+<rect x="675" y="189.0" width="30" height="12" rx="2" fill="#f5f5f5"/>
+<text x="690" y="198.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">HTTPS</text>
+<path d="M752,284.0 H932.0 Q940.0,284.0 940.0,276.0 V136" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+<rect x="806" y="266.0" width="79" height="12" rx="2" fill="#f5f5f5"/>
+<text x="846" y="275.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">LOOKS UP TITLES</text>
+<rect x="831" y="290.0" width="30" height="12" rx="2" fill="#f5f5f5"/>
+<text x="846" y="299.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">HTTPS</text>
+<path d="M1024,412.0 H1204.0 Q1212.0,412.0 1212.0,404.0 V136" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+<rect x="1088" y="394.0" width="59" height="12" rx="2" fill="#f5f5f5"/>
+<text x="1118" y="403.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">SENDS EMAIL</text>
+<rect x="1103" y="418.0" width="30" height="12" rx="2" fill="#f5f5f5"/>
+<text x="1118" y="427.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">HTTPS</text>
+<rect x="40" y="240.0" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="40" y="240.0" width="168" height="88" rx="6" fill="rgba(58,56,51,0.10)" stroke="#5a6580" stroke-width="1"/>
+<text x="124.0" y="262.0" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Customer</text>
+<text x="124.0" y="275.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[Person]</text>
+<text x="124.0" y="290.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Browses the catalogue,</text>
+<text x="124.0" y="302.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">orders books and pays</text>
+<rect x="40" y="112.0" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="40" y="112.0" width="168" height="88" rx="6" fill="rgba(58,56,51,0.10)" stroke="#5a6580" stroke-width="1"/>
+<text x="124.0" y="134.0" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Shop staff</text>
+<text x="124.0" y="147.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[Person]</text>
+<text x="124.0" y="162.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Manages stock, prices and</text>
+<text x="124.0" y="174.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">open orders</text>
+<rect x="584" y="48" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="584" y="48" width="168" height="88" rx="6" fill="rgba(28,28,26,0.03)" stroke="rgba(28,28,26,0.30)" stroke-width="1"/>
+<text x="668.0" y="70" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Payment provider</text>
+<text x="668.0" y="83" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[External system]</text>
+<text x="668.0" y="98" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Card payments and refunds</text>
+<rect x="1128" y="48" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="1128" y="48" width="168" height="88" rx="6" fill="rgba(28,28,26,0.03)" stroke="rgba(28,28,26,0.30)" stroke-width="1"/>
+<text x="1212.0" y="70" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Email service</text>
+<text x="1212.0" y="83" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[External system]</text>
+<text x="1212.0" y="98" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Transactional email</text>
+<text x="1212.0" y="110" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">delivery</text>
+<rect x="856" y="48" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="856" y="48" width="168" height="88" rx="6" fill="rgba(28,28,26,0.03)" stroke="rgba(28,28,26,0.30)" stroke-width="1"/>
+<text x="940.0" y="70" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Book catalogue API</text>
+<text x="940.0" y="83" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[External system]</text>
+<text x="940.0" y="98" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Titles, authors, cover</text>
+<text x="940.0" y="110" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">images</text>
+<rect x="312" y="240.0" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="312" y="240.0" width="168" height="88" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="396.0" y="262.0" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Web app</text>
+<text x="396.0" y="275.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[Container]</text>
+<text x="396.0" y="287.0" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Next.js 16</text>
+<text x="396.0" y="302.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Shop front and staff admin</text>
+<text x="396.0" y="314.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">pages</text>
+<rect x="584" y="240.0" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="584" y="240.0" width="168" height="88" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"/>
+<text x="668.0" y="262.0" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">API</text>
+<text x="668.0" y="275.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[Container]</text>
+<text x="668.0" y="287.0" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Go 1.24, net/http</text>
+<text x="668.0" y="302.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Orders, stock, payments.</text>
+<text x="668.0" y="314.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Serves the web app</text>
+<rect x="312" y="368.0" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="312" y="368.0" width="168" height="88" rx="6" fill="rgba(28,28,26,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="396.0" y="390.0" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Postgres</text>
+<text x="396.0" y="403.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[Data store]</text>
+<text x="396.0" y="415.0" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Postgres 16</text>
+<text x="396.0" y="430.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Orders, stock, customers</text>
+<rect x="856" y="368.0" width="168" height="88" rx="6" fill="#f5f5f5"/>
+<rect x="856" y="368.0" width="168" height="88" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="940.0" y="390.0" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', system-ui, sans-serif" text-anchor="middle">Worker</text>
+<text x="940.0" y="403.0" fill="#5a6580" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.04em">[Container]</text>
+<text x="940.0" y="415.0" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Go 1.24</text>
+<text x="940.0" y="430.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Sends email, builds</text>
+<text x="940.0" y="442.0" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">invoices, nightly reports</text>
+<line x1="24" y1="512" x2="1312" y2="512" stroke="rgba(28,28,26,0.10)" stroke-width="0.8"/>
+<text x="24" y="528" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" letter-spacing="0.14em">LEGEND</text>
+<rect x="96" y="518" width="24" height="12" rx="2" fill="rgba(58,56,51,0.10)" stroke="#5a6580" stroke-width="1"/>
+<text x="128" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">person / caller</text>
+<rect x="228" y="518" width="24" height="12" rx="2" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"/>
+<text x="260" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">focal container</text>
+<rect x="360" y="518" width="24" height="12" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="392" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">container</text>
+<rect x="458" y="518" width="24" height="12" rx="2" fill="rgba(28,28,26,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="490" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">data store</text>
+<rect x="562" y="518" width="24" height="12" rx="2" fill="rgba(28,28,26,0.03)" stroke="rgba(28,28,26,0.30)" stroke-width="1"/>
+<text x="594" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">external system</text>
+<line x1="694" y1="524" x2="718" y2="524" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="726" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">HTTP / API</text>
+<line x1="798" y1="524" x2="822" y2="524" stroke="#4f5d75" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<text x="830" y="528" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">async or not configured</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Default",
+  "source": "diagram-design shipped skin",
+  "paper": "#f5f5f5",
+  "paper2": "#ececec",
+  "ink": "#2d3142",
+  "muted": "#4f5d75",
+  "soft": "#5a6580",
+  "accent": "#bf4520",
+  "accent_tint": "rgba(191,69,32,0.08)",
+  "link": "#2e5aa8",
+  "font_sans": "'Geist', system-ui, sans-serif",
+  "font_mono": "'Geist Mono', ui-monospace, monospace",
+  "font_serif": "'Instrument Serif', 'Noto Serif', serif",
+  "font_link": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"
+}

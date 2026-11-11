@@ -1,0 +1,348 @@
+{
+  "system": {
+    "name": "Bookshop",
+    "description": "Online bookshop: customers browse the catalogue, order books and pay. Staff manage stock and orders.",
+    "source": "bookshop/README.md:1"
+  },
+  "profile": "default",
+  "glossary": {
+    "API": "application programming interface",
+    "HTTPS": "HTTP over TLS",
+    "SQL": "structured query language",
+    "PDF": "portable document format"
+  },
+  "people": [
+    {
+      "id": "customer",
+      "name": "Customer",
+      "type": "person",
+      "group": "Public",
+      "description": "Browses the catalogue, orders books and pays",
+      "inputs": [
+        "searches",
+        "orders",
+        "payment details",
+        "reviews"
+      ],
+      "outputs": [
+        "search results",
+        "order confirmations",
+        "invoices (PDF)",
+        "shipping updates"
+      ],
+      "main_in": "browses and orders on",
+      "main_out": "gets confirmations from",
+      "layout": {
+        "gx": 0,
+        "gy": 1.5
+      },
+      "source": "bookshop/web/src/routes.ts:12"
+    },
+    {
+      "id": "staff",
+      "name": "Shop staff",
+      "type": "person",
+      "group": "Internal",
+      "description": "Manages stock, prices and open orders",
+      "inputs": [
+        "stock counts",
+        "price changes",
+        "order status changes"
+      ],
+      "outputs": [
+        "low-stock alerts",
+        "daily sales report"
+      ],
+      "main_in": "updates stock and orders on",
+      "main_out": "gets alerts and reports from",
+      "layout": {
+        "gx": 0,
+        "gy": 0.5
+      },
+      "source": "bookshop/web/src/admin/routes.ts:4"
+    }
+  ],
+  "external_systems": [
+    {
+      "id": "payments",
+      "name": "Payment provider",
+      "group": "Money",
+      "description": "Card payments and refunds",
+      "in_label": "creates charges on",
+      "out_label": "posts payment events to",
+      "layout": {
+        "gx": 2,
+        "gy": 0
+      },
+      "source": "bookshop/api/internal/payments/client.go:18"
+    },
+    {
+      "id": "email",
+      "name": "Email service",
+      "group": "Messaging",
+      "description": "Transactional email delivery",
+      "in_label": "sends email through",
+      "out_label": "",
+      "layout": {
+        "gx": 4,
+        "gy": 0
+      },
+      "source": "bookshop/worker/mail.go:9"
+    },
+    {
+      "id": "catalogue",
+      "name": "Book catalogue API",
+      "group": "Data",
+      "description": "Titles, authors, cover images",
+      "in_label": "looks up titles on",
+      "out_label": "returns book metadata to",
+      "layout": {
+        "gx": 3,
+        "gy": 0
+      },
+      "source": "bookshop/api/internal/catalogue/client.go:21"
+    }
+  ],
+  "zones": [
+    {
+      "id": "cloud",
+      "name": "Cloud account · eu-west",
+      "gx": 1,
+      "gy": 1.5,
+      "gw": 3,
+      "gh": 2
+    }
+  ],
+  "containers": [
+    {
+      "id": "web",
+      "name": "Web app",
+      "kind": "app",
+      "technology": "Next.js 16",
+      "description": "Shop front and staff admin pages",
+      "zone": "cloud",
+      "layout": {
+        "gx": 1,
+        "gy": 1.5
+      },
+      "source": "bookshop/web/package.json:2"
+    },
+    {
+      "id": "api",
+      "name": "API",
+      "kind": "app",
+      "technology": "Go 1.24, net/http",
+      "description": "Orders, stock, payments. Serves the web app",
+      "zone": "cloud",
+      "focal": true,
+      "layout": {
+        "gx": 2,
+        "gy": 1.5
+      },
+      "source": "bookshop/api/cmd/server/main.go:1"
+    },
+    {
+      "id": "postgres",
+      "name": "Postgres",
+      "kind": "store",
+      "technology": "Postgres 16",
+      "description": "Orders, stock, customers",
+      "zone": "cloud",
+      "layout": {
+        "gx": 1,
+        "gy": 2.5
+      },
+      "source": "bookshop/api/migrations/001_init.sql:1"
+    },
+    {
+      "id": "worker",
+      "name": "Worker",
+      "kind": "app",
+      "technology": "Go 1.24",
+      "description": "Sends email, builds invoices, nightly reports",
+      "zone": "cloud",
+      "layout": {
+        "gx": 3,
+        "gy": 2.5
+      },
+      "source": "bookshop/worker/main.go:1"
+    },
+    {
+      "id": "storage",
+      "name": "Object storage",
+      "kind": "store",
+      "technology": "S3-compatible bucket",
+      "description": "Invoice PDFs and cover images",
+      "zone": "cloud",
+      "source": "bookshop/worker/invoice.go:30"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "customer",
+      "to": "web",
+      "label": "browses and orders",
+      "technology": "HTTPS",
+      "style": "link",
+      "source": "bookshop/web/src/routes.ts:12"
+    },
+    {
+      "from": "staff",
+      "to": "web",
+      "label": "manages stock",
+      "technology": "HTTPS",
+      "style": "link",
+      "source": "bookshop/web/src/admin/routes.ts:4"
+    },
+    {
+      "from": "web",
+      "to": "api",
+      "label": "sends page requests",
+      "technology": "JSON over HTTPS",
+      "style": "link",
+      "source": "bookshop/web/src/lib/api.ts:3"
+    },
+    {
+      "from": "api",
+      "to": "postgres",
+      "label": "reads and writes",
+      "technology": "SQL",
+      "style": "muted",
+      "source": "bookshop/api/internal/db/db.go:14",
+      "route": "vh"
+    },
+    {
+      "from": "api",
+      "to": "worker",
+      "label": "enqueues jobs",
+      "technology": "Postgres queue",
+      "style": "muted",
+      "source": "bookshop/api/internal/jobs/enqueue.go:8",
+      "route": "vh"
+    },
+    {
+      "from": "api",
+      "to": "payments",
+      "label": "creates charges",
+      "technology": "HTTPS",
+      "style": "link",
+      "source": "bookshop/api/internal/payments/client.go:18"
+    },
+    {
+      "from": "api",
+      "to": "catalogue",
+      "label": "looks up titles",
+      "technology": "HTTPS",
+      "style": "link",
+      "source": "bookshop/api/internal/catalogue/client.go:21"
+    },
+    {
+      "from": "worker",
+      "to": "email",
+      "label": "sends email",
+      "technology": "HTTPS",
+      "style": "link",
+      "source": "bookshop/worker/mail.go:9"
+    }
+  ],
+  "deployment": {
+    "environments": [
+      {
+        "id": "production",
+        "name": "Production",
+        "nodes": [
+          {
+            "id": "compute",
+            "name": "Cloud account · eu-west",
+            "technology": "containers",
+            "gx": 0,
+            "gy": 0,
+            "gw": 3,
+            "gh": 1
+          },
+          {
+            "id": "data",
+            "name": "Managed data",
+            "technology": "",
+            "gx": 0,
+            "gy": 2,
+            "gw": 3,
+            "gh": 1
+          }
+        ],
+        "instances": [
+          {
+            "container": "web",
+            "count": 2,
+            "size": "small",
+            "layout": {
+              "gx": 0,
+              "gy": 0
+            }
+          },
+          {
+            "container": "api",
+            "count": 2,
+            "size": "medium",
+            "layout": {
+              "gx": 1,
+              "gy": 0
+            }
+          },
+          {
+            "container": "worker",
+            "count": 1,
+            "size": "small",
+            "layout": {
+              "gx": 2,
+              "gy": 0
+            }
+          },
+          {
+            "container": "postgres",
+            "count": 1,
+            "size": "db-s-2vcpu",
+            "layout": {
+              "gx": 0,
+              "gy": 2
+            }
+          },
+          {
+            "container": "storage",
+            "count": 1,
+            "size": "",
+            "layout": {
+              "gx": 2,
+              "gy": 2
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "from": "web",
+            "to": "api",
+            "label": "sends page requests",
+            "technology": "HTTPS",
+            "style": "link"
+          },
+          {
+            "from": "api",
+            "to": "postgres",
+            "label": "reads and writes",
+            "technology": "SQL, TLS",
+            "style": "muted",
+            "route": "vh"
+          },
+          {
+            "from": "worker",
+            "to": "storage",
+            "label": "writes PDFs",
+            "technology": "S3 API",
+            "style": "muted"
+          }
+        ]
+      }
+    ]
+  },
+  "open_problems": []
+}

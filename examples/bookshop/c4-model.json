@@ -181,7 +181,7 @@
     {
       "from": "customer",
       "to": "web",
-      "label": "browses and orders",
+      "label": "orders on",
       "technology": "HTTPS",
       "style": "link",
       "source": "bookshop/web/src/routes.ts:12"
@@ -197,7 +197,7 @@
     {
       "from": "web",
       "to": "api",
-      "label": "sends page requests",
+      "label": "sends requests",
       "technology": "JSON over HTTPS",
       "style": "link",
       "source": "bookshop/web/src/lib/api.ts:3"
@@ -314,14 +314,15 @@
             "layout": {
               "gx": 2,
               "gy": 2
-            }
+            },
+            "artifact": "S3 bucket"
           }
         ],
         "relationships": [
           {
             "from": "web",
             "to": "api",
-            "label": "sends page requests",
+            "label": "sends requests",
             "technology": "HTTPS",
             "style": "link"
           },

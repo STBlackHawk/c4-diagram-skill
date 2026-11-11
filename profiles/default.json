@@ -1,6 +1,6 @@
 {
   "name": "Default",
-  "source": "diagram-design shipped skin",
+  "source": "diagram-design shipped skin, references/style-guide.md (light and dark columns)",
   "paper": "#f5f5f5",
   "paper2": "#ececec",
   "ink": "#2d3142",
@@ -12,5 +12,15 @@
   "font_sans": "'Geist', system-ui, sans-serif",
   "font_mono": "'Geist Mono', ui-monospace, monospace",
   "font_serif": "'Instrument Serif', 'Noto Serif', serif",
-  "font_link": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"
+  "font_link": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap",
+  "dark": {
+    "paper": "#2d3142",
+    "paper2": "#393e53",
+    "ink": "#f5f5f5",
+    "muted": "#bfc0c0",
+    "soft": "#949eb2",
+    "accent": "#f08a59",
+    "accent_tint": "rgba(240,138,89,0.10)",
+    "link": "#739fdf"
+  }
 }

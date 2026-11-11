@@ -27,9 +27,9 @@
 
 | From | To | Label | Technology |
 |---|---|---|---|
-| customer | web | browses and orders | HTTPS |
+| customer | web | orders on | HTTPS |
 | staff | web | manages stock | HTTPS |
-| web | api | sends page requests | JSON over HTTPS |
+| web | api | sends requests | JSON over HTTPS |
 | api | postgres | reads and writes | SQL |
 | api | worker | enqueues jobs | Postgres queue |
 | api | payments | creates charges | HTTPS |

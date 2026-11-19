@@ -1,11 +1,17 @@
 ---
 name: c4-diagram
-description: Draw C4 model diagrams (System Context, Container, Deployment) of a software product from its code, in the diagram-design visual system. Use when a user asks for a C4 diagram, a system context or container diagram, "what goes in and out of the system", "who uses the system", or wants to understand the system a repo builds. Two steps - discover a C4 model from the repos with a file:line source per fact, then render diagram-design HTML/SVG/PNG with the C4 rules and the diagram-design connector rules checked by scripts.
+description: Model the domain of a software product, then draw its C4 architecture diagrams (System Context, Container, Deployment) from the code, in the diagram-design visual system. Use when a user asks for a C4 diagram, an architecture or system context diagram, a container or deployment diagram, a domain model, a shared glossary or ubiquitous language for a codebase, "what goes in and out of the system", "who uses the system", or wants to understand the system a repo builds. Three steps - agree a shared domain language with the user in GLOSSARY.md (Domain-Driven Design), discover a C4 model from the repos with a file:line source per fact and the glossary terms as names, then render HTML/SVG/PNG checked by scripts.
+license: MIT
+metadata:
+  version: "1.1.0"
+  repository: https://github.com/STBlackHawk/c4-diagram-skill
 ---
 
 # C4 Diagram
 
-Draw C4 model diagrams of a software product. The input is one or more repos. The output is a C4 model file plus three diagrams: System Context, Container and Deployment.
+Model the domain of a software product, then draw it. The input is one or more repos and a conversation with the user. The output is a shared glossary (`GLOSSARY.md`), a C4 model file, and three diagrams: System Context, Container and Deployment.
+
+The glossary comes first. A diagram is a set of names on boxes and arrows: if the code, the UI and the docs use different words for one thing, the diagram shows a different system to each reader. Step 0 agrees the words with the user, with the domain-modeling discipline of [mattpocock/skills](https://github.com/mattpocock/skills) (MIT). Steps 1 and 2 then use only those words.
 
 C4 gives the content: element types, technology, one-direction verb labels, title and legend. The [diagram-design](https://github.com/cathrynlavery/diagram-design) system gives the look: node boxes with type tags, orthogonal connectors, labels on masks, zones, a legend strip, and the accessible SVG contract. The renderer applies both. The checker tests both.
 
@@ -16,10 +22,24 @@ Write all text for people in ASD-STE100 Simplified Technical English (skill `ste
 - A user asks for a C4, system context, container or deployment diagram.
 - A user asks what each user type puts into a system and gets out of it.
 - A developer wants to understand the system a repo builds.
+- A team wants a shared glossary (ubiquitous language) for a codebase, checked against the code and the diagrams.
 
 Do not use for Component or Code diagrams, Dynamic diagrams or System Landscape diagrams. C4 recommends those only in rare cases. Say so and stop at Container. For any other diagram type, use the diagram-design skill directly.
 
-## Two steps
+## Three steps
+
+### Step 0: Agree the domain language
+
+Do this before you write the C4 model. The full method: `references/domain-language.md`.
+
+1. Read the glossary that exists: `GLOSSARY-MAP.md`, `GLOSSARY.md`, `CONTEXT.md` or `docs/glossary.md`.
+2. Run `python3 <skill-dir>/scripts/term_candidates.py <repo> [<repo> ...]`. It lists the nouns the code uses most (tables, types, enums, routes), each with a `path:line`, and pairs of words that may name one thing.
+3. Interview the user in rounds. Round 1: the system in one sentence, the user types and the machine callers. Round 2: the core terms, one canonical term per concept, synonyms under `_Avoid_`. Round 3, for a large system: the bounded contexts and the containers that own each one. Number the questions and give a recommended answer for each. Find facts in the code yourself. Ask the user only for decisions.
+4. Test each boundary with a concrete scenario. When the user's words and the code disagree, quote the `path:line` and ask which is right.
+5. Write each settled term into `GLOSSARY.md` at once, in the format of `references/domain-language.md`. Define what a thing is. No implementation details.
+6. Stop. Start Step 1 only when the user says the words are right.
+
+If the user says "skip the glossary", go to Step 1. The checker then prints a NOTE and does not run the domain checks.
 
 ### Step 1: Discover
 
@@ -38,6 +58,9 @@ Read, in this order, for each repo:
 Full checklist and the questions to answer per element: `references/discovery.md`.
 
 Rules of the model:
+
+- Set `domain.glossary` (or `domain.glossary_map`) to the glossary from Step 0. Name each person, external system and container with glossary terms. When the code uses a word from `_Avoid_`, keep the glossary term in the model and record the code word in `open_problems`.
+- For more than one bounded context, list them in `domain.contexts` and give each container its `context`.
 
 - A **person** is a human role or a machine caller that uses the system. Give each one `inputs` (what it sends in) and `outputs` (what it gets out), as short noun phrases, and one `main_in` and one `main_out` verb label for the diagram.
 - A **software system** you own is the system in scope. A service you do not own or run is an **external system**. A hosted store you configure and own (a database, a bucket) is a **container**, not an external system.
@@ -102,6 +125,14 @@ From `cathrynlavery/diagram-design` (MIT). When the plugin is installed, its `re
 - Page: `min-width` equals the viewBox width inside an `overflow-x: auto` wrapper, released in print.
 - Colours and fonts by semantic role from a profile, never by hex in the code.
 
+## Domain checklist (run before output)
+
+When the model names a glossary, `scripts/c4_check.py` also checks the domain language:
+
+- Every person name is a glossary term.
+- No name, description or label uses a word from an `_Avoid_` line.
+- Every container `context` is one of `domain.contexts`.
+
 ## C4 checklist (run before output)
 
 `scripts/c4_check.py` answers the C4 review checklist from the model and the rendered files. Each item must be yes:
@@ -117,9 +148,10 @@ The full checklist text: `references/c4-rules.md`.
 
 ## Output
 
+- `GLOSSARY.md` (or `GLOSSARY-MAP.md` with one `GLOSSARY.md` per context): the shared domain language. Commit it next to the code it describes.
 - `c4-model.json`: the editable model. Commit it next to the diagrams.
 - `diagrams/c4-context.html`, `c4-container.html`, `c4-deployment-<env>.html`, optional `-dark` variants, and their `.png` and `.svg` exports.
-- `diagrams/c4-tables.md`: Markdown tables to paste under the diagrams (inputs and outputs per role, elements, relationships).
+- `diagrams/c4-tables.md`: Markdown tables to paste under the diagrams (inputs and outputs per role, elements, relationships, the domain language and the bounded contexts).
 
 ## Keep it current
 

@@ -13,8 +13,12 @@ import argparse
 import json
 import math
 import re
+import sys
 from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import glossary  # noqa: E402
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 DD_PROFILES = Path.home() / ".diagram-design" / "profiles"
@@ -560,7 +564,7 @@ def render_deployment(model: dict[str, Any], env: dict[str, Any], profile: dict[
     return html, cv.geometry, cv.warnings
 
 
-def tables(model: dict[str, Any]) -> str:
+def tables(model: dict[str, Any], base: Path) -> str:
     out = ["## Inputs and outputs per user type", "", "| User type | Group | Sends in | Gets out |", "|---|---|---|---|"]
     for p in model["people"]:
         out.append(f"| {p['name']} ({'machine' if p.get('type') == 'machine' else 'person'}) | {p.get('group', '')} | {', '.join(p.get('inputs', []))} | {', '.join(p.get('outputs', []))} |")
@@ -573,8 +577,20 @@ def tables(model: dict[str, Any]) -> str:
     out += ["", "## Relationships", "", "| From | To | Label | Technology |", "|---|---|---|---|"]
     for r in model["relationships"]:
         out.append(f"| {r['from']} | {r['to']} | {r.get('label', '')} | {r.get('technology', '')} |")
+    if domain := model.get("domain"):
+        g = glossary.load(base, domain)
+        avoid: dict[str, list[str]] = {}
+        for word, term in g.avoid.items():
+            avoid.setdefault(term, []).append(word)
+        out += ["", "## Domain language", "", f"From {', '.join(f.name for f in g.files)}.", "", "| Term | Means | Avoid |", "|---|---|---|"]
+        out += [f"| {t} | {g.meaning.get(t, '')} | {', '.join(avoid.get(t, []))} |" for t in g.terms.values()]
+        if domain.get("contexts"):
+            out += ["", "## Bounded contexts", "", "| Context | Containers |", "|---|---|"]
+            for ctx in domain["contexts"]:
+                owned = [c["name"] for c in model["containers"] if c.get("context") == ctx["id"]]
+                out.append(f"| {ctx['name']} | {', '.join(owned)} |")
     if model.get("glossary"):
-        out += ["", "## Glossary", ""]
+        out += ["", "## Acronyms", ""]
         out += [f"- {k}: {v}" for k, v in model["glossary"].items()]
     return "\n".join(out) + "\n"
 
@@ -670,7 +686,7 @@ def main() -> None:
             if not dark:
                 geometry[f"c4-deployment-{env['id']}"] = geo
                 warnings += warn
-    (out / "c4-tables.md").write_text(tables(model))
+    (out / "c4-tables.md").write_text(tables(model, model_path.parent))
     geometry["warnings"] = list(dict.fromkeys(warnings))
     (out / "c4-geometry.json").write_text(json.dumps(geometry))
     for w in geometry["warnings"]:

@@ -11,6 +11,15 @@
     "SQL": "structured query language",
     "PDF": "portable document format"
   },
+  "domain": {
+    "glossary": "GLOSSARY.md",
+    "contexts": [
+      {
+        "id": "selling",
+        "name": "Selling"
+      }
+    ]
+  },
   "people": [
     {
       "id": "customer",
@@ -119,13 +128,14 @@
       "name": "Web app",
       "kind": "app",
       "technology": "Next.js 16",
-      "description": "Shop front and staff admin pages",
+      "description": "Shop front and shop staff pages",
       "zone": "cloud",
       "layout": {
         "gx": 1,
         "gy": 1.5
       },
-      "source": "bookshop/web/package.json:2"
+      "source": "bookshop/web/package.json:2",
+      "context": "selling"
     },
     {
       "id": "api",
@@ -139,7 +149,8 @@
         "gx": 2,
         "gy": 1.5
       },
-      "source": "bookshop/api/cmd/server/main.go:1"
+      "source": "bookshop/api/cmd/server/main.go:1",
+      "context": "selling"
     },
     {
       "id": "postgres",
@@ -152,7 +163,8 @@
         "gx": 1,
         "gy": 2.5
       },
-      "source": "bookshop/api/migrations/001_init.sql:1"
+      "source": "bookshop/api/migrations/001_init.sql:1",
+      "context": "selling"
     },
     {
       "id": "worker",
@@ -165,7 +177,8 @@
         "gx": 3,
         "gy": 2.5
       },
-      "source": "bookshop/worker/main.go:1"
+      "source": "bookshop/worker/main.go:1",
+      "context": "selling"
     },
     {
       "id": "storage",
@@ -174,7 +187,8 @@
       "technology": "S3-compatible bucket",
       "description": "Invoice PDFs and cover images",
       "zone": "cloud",
-      "source": "bookshop/worker/invoice.go:30"
+      "source": "bookshop/worker/invoice.go:30",
+      "context": "selling"
     }
   ],
   "relationships": [

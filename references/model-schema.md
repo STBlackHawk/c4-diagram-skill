@@ -7,6 +7,7 @@ One JSON file holds the whole model. Every element has a `source` (`repo/path:li
   "system": {"name": "Bookshop", "description": "Online bookshop: customers browse, order and pay. Staff manage stock.", "source": "bookshop/README.md:1"},
   "profile": "default",
   "glossary": {"API": "application programming interface", "HTTPS": "HTTP over TLS"},
+  "domain": {"glossary": "GLOSSARY.md", "contexts": [{"id": "selling", "name": "Selling"}]},
   "people": [
     {
       "id": "customer", "name": "Customer", "type": "person", "group": "Public",
@@ -75,11 +76,14 @@ One JSON file holds the whole model. Every element has a `source` (`repo/path:li
 | `system.name`, `system.description` | yes | The one software system in scope |
 | `profile` | no | Brand profile slug. See "Brand profile" below |
 | `glossary` | when an acronym appears | Each acronym used in a name, description or label |
+| `domain.glossary` | yes, after Step 0 | Path to `GLOSSARY.md`, relative to the model. The checker reads its terms and `_Avoid_` words |
+| `domain.glossary_map` | no | Path to `GLOSSARY-MAP.md` for a repo with more than one bounded context. The checker reads every `GLOSSARY.md` it links |
+| `domain.contexts[]` | no | Bounded contexts: `id` and `name`. Each container may name one in `context` |
 | `people[]` | yes | `type` is `person` (human) or `machine` (agent, CI, other software that calls in). `group` names the band on the context diagram |
 | `people[].inputs`, `outputs` | yes | Short noun phrases. They fill the table, not the diagram |
 | `people[].main_in`, `main_out` | yes | Verb labels for the two arrows on the context diagram. Max 32 characters. Leave `main_out` empty when nothing flows back |
 | `external_systems[]` | yes | Things you do not own. `in_label`: what the system sends to it. `out_label`: what it sends to the system. Either can be empty. Max 32 characters |
-| `containers[]` | yes | `kind` is `app` or `store`. `technology` is required. `zone` is a zone id or null. `focal: true` on at most one |
+| `containers[]` | yes | `kind` is `app` or `store`. `technology` is required. `zone` is a zone id or null. `focal: true` on at most one. `context` names its bounded context |
 | `zones[]` | no | Runtime or trust boundaries on the container diagram, in grid units |
 | `layout` | yes for the container diagram | `gx`, `gy` in grid units. `gw`, `gh` span cells. People sit at low `gx`, external systems at high `gx` or `gy: 0` |
 | `relationships[]` | yes | One direction. `label` is a verb phrase, max 20 characters. The renderer cuts a label that does not fit its segment and the checker fails, so keep labels short. `technology` is required when both ends are containers, same limits. `style`: `link` (HTTP, API, crosses a boundary), `muted` (internal), `accent` (the one headline path). `dashed: true` for async or not-configured. `route: "vh"` makes an off-axis arrow leave the source top or bottom first, then turn into the target side, when the default side-first elbow would pass behind a node (the renderer prints a WARN) |

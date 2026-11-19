@@ -1,5 +1,7 @@
 # Discovery: from code to a C4 model
 
+Start from the glossary of Step 0 (`references/domain-language.md`). Use its terms for every name and label below.
+
 Read code, not docs. When a doc and the code disagree, the code wins and the disagreement goes into `open_problems`.
 
 ## Questions to answer
@@ -16,7 +18,7 @@ For each distinct caller type:
 | Question | Where to look |
 |---|---|
 | Who signs in, and how? | auth middleware, session routes, OAuth routes, OTP senders |
-| Which roles exist? | role tables, permission checks (`requireAdmin`, `platform_members`), admin route prefixes |
+| Which roles exist? | role tables, permission checks (`requireAdmin`, role or membership tables), admin route prefixes |
 | Which machines call in? | API key middleware, MCP endpoints, webhook routes, CI workflows that call the API |
 | What does each one send in? | request schemas on its routes, upload handlers, form parsers |
 | What does each one get out? | response schemas, SSE streams, emails sent to that role, exports |

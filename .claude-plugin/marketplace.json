@@ -1,0 +1,16 @@
+{
+  "name": "c4-diagram-skill",
+  "owner": { "name": "STBlackHawk", "url": "https://github.com/STBlackHawk" },
+  "metadata": {
+    "description": "Domain modeling and C4 architecture diagrams from code, as an Agent Skill for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "c4-diagram",
+      "source": "./",
+      "description": "Agree a shared domain glossary, then draw C4 System Context, Container and Deployment diagrams from the code.",
+      "category": "documentation",
+      "tags": ["architecture", "c4-model", "ddd", "diagrams"]
+    }
+  ]
+}

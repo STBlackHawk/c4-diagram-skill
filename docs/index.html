@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>c4-diagram: domain modeling and C4 architecture diagrams from code</title>
+<meta name="description" content="Open-source Agent Skill for Claude Code. Agree a shared domain glossary (ubiquitous language), then generate checked C4 System Context, Container and Deployment diagrams from your codebase.">
+<link rel="canonical" href="https://stblackhawk.github.io/c4-diagram-skill/">
+<link rel="icon" href="icon.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="c4-diagram: domain model + C4 diagrams from code">
+<meta property="og:description" content="Agree a shared glossary with your team, then draw the system your repo builds. An Agent Skill for Claude Code.">
+<meta property="og:url" content="https://stblackhawk.github.io/c4-diagram-skill/">
+<meta property="og:image" content="https://stblackhawk.github.io/c4-diagram-skill/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "c4-diagram",
+      "alternateName": "c4-diagram-skill",
+      "description": "An Agent Skill for Claude Code that agrees a shared domain glossary (ubiquitous language) with the user, then discovers a C4 model from a codebase with a source for every fact, and renders checked System Context, Container and Deployment diagrams.",
+      "codeRepository": "https://github.com/STBlackHawk/c4-diagram-skill",
+      "url": "https://stblackhawk.github.io/c4-diagram-skill/",
+      "programmingLanguage": "Python",
+      "license": "https://opensource.org/licenses/MIT",
+      "version": "1.1.0",
+      "author": {"@type": "Person", "name": "Shahin", "alternateName": "STBlackHawk", "url": "https://github.com/STBlackHawk"},
+      "keywords": "C4 model, architecture diagram, software architecture, domain-driven design, ubiquitous language, glossary, Claude Code, Agent Skills, diagrams as code",
+      "image": "https://stblackhawk.github.io/c4-diagram-skill/social-preview.png"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "How do I generate a C4 diagram from my code?",
+         "acceptedAnswer": {"@type": "Answer", "text": "Install the c4-diagram skill in Claude Code with /plugin install c4-diagram --marketplace STBlackHawk/c4-diagram-skill, open your repo and ask for a C4 diagram. The agent agrees a glossary with you, writes c4-model.json from the code and renders System Context, Container and Deployment diagrams."}},
+        {"@type": "Question", "name": "What is a ubiquitous language, and why does a diagram need one?",
+         "acceptedAnswer": {"@type": "Answer", "text": "In Domain-Driven Design, the ubiquitous language is the one set of words that the team, the code and the docs use for the domain. c4-diagram writes it to GLOSSARY.md first and fails any diagram that uses a rejected synonym, so every reader sees the same system."}},
+        {"@type": "Question", "name": "How is c4-diagram different from Structurizr, PlantUML C4 or Mermaid C4?",
+         "acceptedAnswer": {"@type": "Answer", "text": "Those tools render a model that you write by hand. c4-diagram writes the model from the code with a file:line source for each fact, checks it against the C4 rules and the glossary, and then renders it."}}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{--paper:#f5f5f5;--card:#fff;--ink:#2d3142;--muted:#4f5d75;--accent:#bf4520;--link:#2e5aa8;--rule:#dcdcdc}
+@media (prefers-color-scheme:dark){:root{--paper:#16181f;--card:#1e212b;--ink:#e7e9ef;--muted:#a9b1c4;--accent:#e2774f;--link:#8fb0ec;--rule:#2e3240}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 Geist,system-ui,sans-serif}
+main{max-width:920px;margin:0 auto;padding:56px 16px 80px}
+.k{font:500 14px 'Geist Mono',monospace;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+h1{font:400 clamp(40px,7vw,64px)/1.05 'Instrument Serif',serif;margin:12px 0 16px}
+h2{font:400 32px/1.2 'Instrument Serif',serif;margin:48px 0 12px}
+p,li{color:var(--muted)} strong{color:var(--ink)}
+a{color:var(--link)}
+pre{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;overflow-x:auto;font:500 14px/1.5 'Geist Mono',monospace;color:var(--ink)}
+code{font-family:'Geist Mono',monospace;font-size:.92em}
+img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:8px;background:#fff}
+ol li{margin:6px 0}
+dl dt{font-weight:600;color:var(--ink);margin-top:18px} dl dd{margin:4px 0 0;color:var(--muted)}
+footer{margin-top:56px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<div class="k">Agent Skill · Claude Code · MIT</div>
+<h1>Domain modeling and C4 architecture diagrams from code</h1>
+<p><strong>c4-diagram is an open-source Agent Skill that turns a codebase into a shared domain glossary and a set of C4 model diagrams.</strong> It agrees the words for your domain with you in <code>GLOSSARY.md</code>, reads the code into an editable <code>c4-model.json</code> with a <code>file:line</code> source for every fact, and renders System Context, Container and Deployment diagrams. Scripts check every diagram against the C4 rules and the glossary.</p>
+
+<h2>Install</h2>
+<pre>/plugin install c4-diagram --marketplace STBlackHawk/c4-diagram-skill</pre>
+<p>Or <code>npx skills add STBlackHawk/c4-diagram-skill</code>, or clone it into <code>~/.claude/skills/c4-diagram</code>. Then ask: “Draw a C4 diagram of this repo.”</p>
+
+<h2>How it works</h2>
+<ol>
+<li><strong>Agree the domain language.</strong> The agent lists candidate terms from your code, interviews you in short rounds, and writes each settled term to <code>GLOSSARY.md</code> with its rejected synonyms.</li>
+<li><strong>Discover.</strong> It reads deploy specs, CI, config, routes, clients and schemas, and names every element with a glossary term.</li>
+<li><strong>Draw and check.</strong> It renders HTML, SVG and PNG, light and dark, and runs the C4, domain, geometry and accessibility checks.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/STBlackHawk/c4-diagram-skill/main/examples/bookshop/diagrams/c4-context.png" alt="System Context diagram for an example bookshop: customers and shop staff use the bookshop, which calls a payment provider, an email service and a book catalogue API" width="1400" height="549" loading="lazy">
+
+<h2>FAQ</h2>
+<dl>
+<dt>How do I generate a C4 diagram from my code?</dt>
+<dd>Install the skill, open Claude Code in your repo and ask for a C4 diagram. The agent agrees a glossary with you, writes <code>c4-model.json</code> from the code, and renders the System Context, Container and Deployment diagrams.</dd>
+<dt>What is a ubiquitous language, and why does a diagram need one?</dt>
+<dd>In Domain-Driven Design, the ubiquitous language is the one set of words that the team, the code and the docs use for the domain. The checker fails any diagram that uses a rejected synonym, so every reader sees the same system.</dd>
+<dt>How is it different from Structurizr, PlantUML C4 or Mermaid C4?</dt>
+<dd>Those tools render a model that you write by hand. c4-diagram writes the model from the code, with a source for each fact, and checks it before it renders.</dd>
+</dl>
+
+<footer>
+<a href="https://github.com/STBlackHawk/c4-diagram-skill">Source on GitHub</a> · <a href="llms.txt">llms.txt</a> · Glossary method from <a href="https://github.com/mattpocock/skills">mattpocock/skills</a> · Visual system from <a href="https://github.com/cathrynlavery/diagram-design">diagram-design</a> · C4 by <a href="https://c4model.com">Simon Brown</a>
+</footer>
+</main>
+</body>
+</html>

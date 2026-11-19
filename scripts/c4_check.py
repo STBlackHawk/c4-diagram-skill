@@ -10,6 +10,9 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import glossary  # noqa: E402
+
 VAGUE = {"uses", "use", "calls", "call", "talks to", "connects to", ""}
 MAX_LABEL, MAX_CONTEXT_LABEL, MAX_ACCENT = 20, 32, 2
 
@@ -27,6 +30,39 @@ def segment_hits(seg: list, node: dict) -> bool:
         lo, hi = sorted((y1, y2))
         return node["x"] < x1 < node["x"] + node["w"] and lo < node["y"] + node["h"] and hi > node["y"]
     return False
+
+
+def check_domain(model: dict, base: Path) -> list[str]:
+    domain = model.get("domain") or {}
+    if not domain.get("glossary") and not domain.get("glossary_map"):
+        print("NOTE model has no domain.glossary: the domain language checks did not run (Step 0, references/domain-language.md)")
+        return []
+    try:
+        g = glossary.load(base, domain)
+    except OSError as e:
+        return [f"domain glossary not readable: {e}"]
+    if not g.terms:
+        return ["domain glossary has no terms"]
+    problems: list[str] = []
+    for p in model["people"]:
+        name = p.get("name", "").lower()
+        if name not in g.terms and name.rstrip("s") not in g.terms:
+            problems.append(f"person {p['id']}: name '{p.get('name')}' is not a glossary term")
+    contexts = {c["id"] for c in domain.get("contexts", [])}
+    for c in model["containers"]:
+        if contexts and c.get("context") and c["context"] not in contexts:
+            problems.append(f"container {c['id']}: context '{c['context']}' is not in domain.contexts")
+    texts = [("system", model["system"].get("name", "") + " " + model["system"].get("description", ""))]
+    for kind, items in (("person", model["people"]), ("external system", model["external_systems"]), ("container", model["containers"])):
+        for e in items:
+            fields = ("name", "description", "main_in", "main_out", "in_label", "out_label")
+            texts.append((f"{kind} {e['id']}", " ".join(str(e.get(f, "")) for f in fields)))
+    for r in model["relationships"]:
+        texts.append((f"relationship {r['from']} -> {r['to']}", r.get("label", "")))
+    for where, text in texts:
+        for word, term in glossary.find_avoided(text, g):
+            problems.append(f"{where}: uses '{word}', the glossary term is '{term}'")
+    return problems
 
 
 def check_model(model: dict) -> list[str]:
@@ -144,9 +180,10 @@ def run_checker(script: str, files: list[Path]) -> list[str]:
 
 
 def main() -> None:
-    model = json.loads(Path(sys.argv[1]).read_text())
+    model_path = Path(sys.argv[1])
+    model = json.loads(model_path.read_text())
     out = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("diagrams")
-    problems = check_model(model) + check_geometry(out)
+    problems = check_domain(model, model_path.parent) + check_model(model) + check_geometry(out)
     htmls = sorted(out.glob("c4-*.html"))
     for html in htmls:
         text = html.read_text()

@@ -1,0 +1,26 @@
+# c4-diagram
+
+> c4-diagram is an open-source (MIT) Agent Skill for Claude Code. It agrees a shared domain glossary (ubiquitous language, Domain-Driven Design) with the user in GLOSSARY.md, then reads a codebase and draws C4 model architecture diagrams: System Context, Container and Deployment. Every fact in the model has a file:line source. Scripts check the diagrams against the C4 rules and the glossary.
+
+Install in Claude Code: `/plugin install c4-diagram --marketplace STBlackHawk/c4-diagram-skill`. Other ways: `npx skills add STBlackHawk/c4-diagram-skill`, or `git clone https://github.com/STBlackHawk/c4-diagram-skill ~/.claude/skills/c4-diagram`. Then ask the agent for "a C4 diagram of this repo".
+
+Steps: 0) agree the domain language and write GLOSSARY.md; 1) discover c4-model.json from deploy specs, CI, config, routes, clients and schemas; 2) render HTML, SVG and PNG and run scripts/c4_check.py.
+
+## Docs
+
+- [README](https://github.com/STBlackHawk/c4-diagram-skill/blob/main/README.md): what it does, install, example, FAQ
+- [SKILL.md](https://github.com/STBlackHawk/c4-diagram-skill/blob/main/SKILL.md): the instructions the agent follows
+- [Domain language (Step 0)](https://github.com/STBlackHawk/c4-diagram-skill/blob/main/references/domain-language.md): glossary interview and GLOSSARY.md format
+- [Discovery (Step 1)](https://github.com/STBlackHawk/c4-diagram-skill/blob/main/references/discovery.md): how to find people, external systems, containers and relationships in code
+- [Model schema](https://github.com/STBlackHawk/c4-diagram-skill/blob/main/references/model-schema.md): the c4-model.json fields
+- [C4 rules](https://github.com/STBlackHawk/c4-diagram-skill/blob/main/references/c4-rules.md): the review checklist
+
+## Examples
+
+- [Bookshop example](https://github.com/STBlackHawk/c4-diagram-skill/tree/main/examples/bookshop): GLOSSARY.md, c4-model.json and rendered diagrams
+
+## Optional
+
+- [C4 model](https://c4model.com): the notation, by Simon Brown
+- [diagram-design](https://github.com/cathrynlavery/diagram-design): the visual system the renderer uses
+- [mattpocock/skills domain-modeling](https://github.com/mattpocock/skills): the source of the glossary method

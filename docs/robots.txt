@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://stblackhawk.github.io/c4-diagram-skill/sitemap.xml

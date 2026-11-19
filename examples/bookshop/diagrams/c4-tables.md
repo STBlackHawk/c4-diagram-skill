@@ -17,7 +17,7 @@
 
 | Container | Kind | Technology | Does |
 |---|---|---|---|
-| Web app | app | Next.js 16 | Shop front and staff admin pages |
+| Web app | app | Next.js 16 | Shop front and shop staff pages |
 | API | app | Go 1.24, net/http | Orders, stock, payments. Serves the web app |
 | Postgres | store | Postgres 16 | Orders, stock, customers |
 | Worker | app | Go 1.24 | Sends email, builds invoices, nightly reports |
@@ -36,7 +36,26 @@
 | api | catalogue | looks up titles | HTTPS |
 | worker | email | sends email | HTTPS |
 
-## Glossary
+## Domain language
+
+From GLOSSARY.md.
+
+| Term | Means | Avoid |
+|---|---|---|
+| Customer | A person who orders books from the shop. | client, buyer, user |
+| Shop staff | A person who works for the shop and keeps the stock, the prices and the open orders current. | admin, operator |
+| Catalogue | The list of books that the shop can sell, with title, author, cover and price. | product list |
+| Order | A request from a customer to buy one or more books at the prices shown when the customer pays. | purchase, basket, cart |
+| Stock | The number of copies of each book that the shop holds now. | inventory |
+| Invoice | The PDF that records an order, its prices and its payment. | bill, receipt |
+
+## Bounded contexts
+
+| Context | Containers |
+|---|---|
+| Selling | Web app, API, Postgres, Worker, Object storage |
+
+## Acronyms
 
 - API: application programming interface
 - HTTPS: HTTP over TLS

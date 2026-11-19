@@ -1,0 +1,11 @@
+{
+  "name": "c4-diagram",
+  "version": "1.1.0",
+  "description": "Domain modeling and C4 architecture diagrams from code: agree a shared glossary (ubiquitous language) with the user, then draw System Context, Container and Deployment diagrams with a source for every fact.",
+  "author": { "name": "STBlackHawk", "url": "https://github.com/STBlackHawk" },
+  "homepage": "https://stblackhawk.github.io/c4-diagram-skill/",
+  "repository": "https://github.com/STBlackHawk/c4-diagram-skill",
+  "license": "MIT",
+  "keywords": ["c4-model", "architecture-diagram", "domain-driven-design", "ubiquitous-language", "glossary", "software-architecture", "diagrams-as-code", "agent-skill"],
+  "skills": ["./"]
+}
